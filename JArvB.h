@@ -1,3 +1,6 @@
+#ifndef JARVB_H
+#define JARVB_H
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -27,8 +30,12 @@ void BuscaArvB(int x, ArvB *arvB, Pagina **ponteiro, int *f, int *g, Pilha **top
 void InsereBnonVazia(Pagina *pt, int g, int x, Pagina *ptDir);
 void InsereB(int x, ArvB *raiz,Pagina **pt,int *f,int *g,Pilha **topo, int ordem);
 void Inserir(ArvB** raiz, int ordem);
+void JRemover(Pagina** ponteiro, ArvB *arvore, int x);
+
 
 
 //auxiliares
 void Empilhar(Pilha **topo, Pagina *pt);
 Pagina* Desempilhar(Pilha **topo);
+
+#endif

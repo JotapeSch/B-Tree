@@ -1,3 +1,6 @@
+#ifndef JPRINT_ARVB_H
+#define JPRINT_ARVB_H
+
 #include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
@@ -63,9 +66,6 @@ void Nivel(Pagina *arv, int salto_linha, int colunas){
         elemento *aux = fila->inicio; //auxiliar so pra nao mexer na fila diretamente
         int quantidadeNaFila = 0; // contagem do nivel
 
-
-        
-
         while(aux != NULL){ //faco a contagem para cada pagina de quantos elementos tem
             quantidadeNaFila++;
             aux = aux->prox;
@@ -75,7 +75,7 @@ void Nivel(Pagina *arv, int salto_linha, int colunas){
         int passo = 20;
         int colunaI = colunas / 2 -((quantidadeNaFila - 1)*passo)/2;
         mvprintw(linha, 1, "Nivel %d:", nivel); //printo o nivel com ncurses
-
+        
         for (int i = 0; i < quantidadeNaFila; i++){
             int coluna = colunaI+ i * passo;
             elemento *remo = remover(fila); //desenfileiro o primeiro da lista
@@ -112,7 +112,7 @@ void ImprimeArvB(ArvB*arvore){
     clear();  // limpo a tela
     int linhas, colunas;
     getmaxyx(stdscr, linhas, colunas); //esse stdscr eh a tela principal do ncurses, n entendi bem...
-    int salto_linha = 3;
+    int salto_linha = 1;
 
     if(arvore->raiz == NULL){
         //arvore vazia
@@ -128,3 +128,5 @@ void ImprimeArvB(ArvB*arvore){
     getch(); // espero alguem clicar em algo
     endwin();//finaliza e volta ao terminal
 }
+
+#endif

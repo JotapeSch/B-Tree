@@ -80,9 +80,10 @@ void Menu(){
 
         case 3:
             {   
+                Pagina* ptpage;
                 printf("Digite a chave para REMOVER: ");
                 scanf("%d", &chave);
-                //remocao
+                JRemover(&ptpage, raiz, chave);
                 printf("\nPressione ENTER para continuar...");
                 getchar();getchar();
                 limpar_tela();
@@ -103,13 +104,9 @@ void Menu(){
 }
 
 
-void Inicializar(){
-    Menu();
-}
-
 
 int main(){
-    Inicializar();
+    Menu();
 
     return 0;
 }

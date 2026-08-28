@@ -164,6 +164,60 @@ topo → folha → pai → avô → raiz → NULL
 
 */
 
+void JRemover(Pagina** ponteiro, ArvB *arvore, int x){
+    Pilha *topo = NULL;
+    int f = 0, g = 0;
+
+    BuscaArvB(x, arvore, ponteiro, &f, &g, &topo);
+    if (f == 0){
+        printf("ARVORE ESTA VAZIA\n");
+        return;
+    }
+
+    if((*ponteiro)->pont[0] == NULL){
+        //estou em uma pagina folha
+        for (int i = g; i < (*ponteiro)->m - 1; i++){
+            (*ponteiro)->keys[i] = (*ponteiro)->keys[i+1];
+        }
+        (*ponteiro)->m--;
+
+        /*
+        if(soma < 2d){
+            concatenacao()
+        } else {
+            redistribuicao()
+        }
+        */
+    } else {
+        //pagina interna... faz o sucessor
+        Pagina *PageOriginal = *ponteiro; //guardo pois vou empilhar ate chegar no sucessor
+        int gOriginal = g;
+
+        Pagina *ptInterna = PageOriginal->pont[g+1]; //passo para achar o sucessor
+        Empilhar(&topo, ptInterna); //comeco a empilhar
+
+        while(ptInterna->pont[0] != NULL){
+            ptInterna = ptInterna->pont[0];//anda ate chegar no sucessor 
+            Empilhar(&topo, ptInterna);
+        }
+        int sucessor = ptInterna->keys[0]; //achamos o sucessor
+        PageOriginal->keys[gOriginal] = sucessor; //na onde o elemento que queremos retirar estava localizado
+        //eh trocado pelo sucessor 
+        for (int i = g; i < (*ponteiro)->m - 1; i++){
+            ptInterna->keys[i] = ptInterna->keys[i+1]; //como retiramos... apenas povo ele pra um indice anterior
+        }
+        ptInterna->m--;
+
+        /*
+        if(soma < 2d){
+            concatenacao()
+        } else {
+            redistribuicao()
+        }
+        */
+    }
+}
+
 void Empilhar(Pilha **topo, Pagina *pt){
     Pilha *novo = malloc(sizeof(Pilha));
     novo->caminho = pt;
